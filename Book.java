@@ -1,6 +1,8 @@
 package com.jetbrains;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Book{
 
     private List<Person> persons;
-    private JTable table;
+    private JPanel panel_address_book;
     public Book(String file_name) throws FileNotFoundException{
         this.loadFromFile(file_name);
         String array[][] = new String[persons.size()][8];
@@ -26,7 +28,11 @@ public class Book{
             array[i][7] = persons.get(i).getAddress().getPost_office();
         }
         String[] column_names = {"Imię", "Nazwisko", "Telefon", "Ulica", "Nr domu", "Nr mieszkania","Kod pocztowy", "Urząd pocztowy"};
-        this.table = new JTable(array, column_names);
+        JTable table = new JTable(array, column_names);
+        this.panel_address_book = new JPanel();
+
+        panel_address_book.add(table.getTableHeader(), BorderLayout.PAGE_START);
+        panel_address_book.add(table, BorderLayout.CENTER);
     }
 
     public void loadFromFile(String file_name) throws FileNotFoundException
@@ -49,10 +55,9 @@ public class Book{
         this.persons.add(person);
     }
 
-    public JTable getJTable()
+    public JPanel getJPanel()
     {
-        return this.table;
+        return this.panel_address_book;
     }
-
 
 }

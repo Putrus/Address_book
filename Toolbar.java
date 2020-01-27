@@ -2,14 +2,16 @@ package com.jetbrains;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class Toolbar extends JPanel {
+public class Toolbar extends JPanel implements ActionListener{
     private JButton b_add;
     private JButton b_delete;
     private JButton b_mod;
     private JButton b_display;
     private JButton b_search;
-
+    private ShowManager manager;
     public Toolbar()
     {
         setBorder(BorderFactory.createEtchedBorder());
@@ -20,13 +22,36 @@ public class Toolbar extends JPanel {
         this.b_search = new JButton("Szukaj");
         setLayout(new FlowLayout(FlowLayout.LEFT));
 
+        this.b_add.addActionListener(this);
+        this.b_delete.addActionListener(this);
+        this.b_mod.addActionListener(this);
+        this.b_display.addActionListener(this);
+        this.b_search.addActionListener(this);
         add(b_add);
         add(b_delete);
         add(b_mod);
         add(b_display);
         add(b_search);
 
-        /*setVisible(true);*/
+
 
     }
+    public void setShowManager(ShowManager showmanager){
+        this.manager = showmanager;
+    }
+    public void actionPerformed(ActionEvent actionEvent) {
+        JButton clicked = (JButton)actionEvent.getSource();
+        if(clicked == this.b_display)
+        {
+            this.manager.Display();
+        }
+        else if(clicked == this.b_add)
+        {
+            this.manager.DisplayAddPanel();
+        }
+
+    }
+
+
+
 }
