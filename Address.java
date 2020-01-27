@@ -34,4 +34,27 @@ public class Address {
     public String getPost_office() {
         return this.post_office;
     }
+
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setNr_house(String nr_house) {
+        this.nr_house = nr_house;
+    }
+
+    public void setNr_flat(String nr_flat) {
+        this.nr_flat = nr_flat;
+    }
+
+    public void setPost_code(String post_code) {
+        this.post_code = post_code;
+    }
+
+    public void setPost_office(String post_office) {
+        this.post_office = post_office;
+    }
 }
+
+

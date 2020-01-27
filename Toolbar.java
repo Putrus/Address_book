@@ -1,6 +1,7 @@
 package com.jetbrains;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,8 @@ public class Toolbar extends JPanel implements ActionListener{
 
 
 
+
+
     }
     public void setShowManager(ShowManager showmanager){
         this.manager = showmanager;
@@ -48,6 +51,14 @@ public class Toolbar extends JPanel implements ActionListener{
         else if(clicked == this.b_add)
         {
             this.manager.DisplayAddPanel();
+        }
+        else if(clicked == this.b_delete)
+        {
+            this.manager.DisplayDeletePanel();
+        }
+        else if(clicked == this.b_mod)
+        {
+            this.manager.DisplayModPanel();
         }
 
     }

@@ -28,4 +28,20 @@ public class Person {
     public Address getAddress() {
         return this.address;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setPhone_number(String phone_number) {
+        this.phone_number = phone_number;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }

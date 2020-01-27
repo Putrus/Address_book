@@ -7,7 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
-public class Add_panel extends JPanel {
+public class Mod_panel extends JPanel {
+    private JLabel indexLabel;
     private JLabel nameLabel;
     private JLabel surnameLabel;
     private JLabel phoneLabel;
@@ -17,6 +18,7 @@ public class Add_panel extends JPanel {
     private JLabel postCodeLabel;
     private JLabel postOfficeLabel;
 
+    private JTextField indexText;
     private JTextField nameText;
     private JTextField surnameText;
     private JTextField phoneText;
@@ -26,26 +28,28 @@ public class Add_panel extends JPanel {
     private JTextField postCodeText;
     private JTextField postOfficeText;
 
-    private JButton addBtn;
+    private JButton modBtn;
 
 
     private ShowManager manager;
-    public Add_panel() throws FileNotFoundException
+    public Mod_panel() throws FileNotFoundException
     {
         Dimension dim = getPreferredSize();
         dim.width = 200;
 
-        this.nameLabel = new JLabel("Imię: ");
-        this.surnameLabel = new JLabel("Nazwisko: ");
-        this.phoneLabel = new JLabel("Numer telefonu: ");
-        this.streetLabel = new JLabel("Ulica: ");
-        this.nrHouseLabel = new JLabel("Numer domu: ");
-        this.nrFlatLabel = new JLabel("Numer mieszkania: ");
-        this.postCodeLabel = new JLabel("Kod pocztowy: ");
-        this.postOfficeLabel = new JLabel("Urząd pocztowy: ");
-        this.addBtn = new JButton("Dodaj");
+        this.indexLabel = new JLabel("Indeks: ");
+        this.nameLabel = new JLabel("Nowe imię: ");
+        this.surnameLabel = new JLabel("Nowe nazwisko: ");
+        this.phoneLabel = new JLabel("Nowy numer telefonu: ");
+        this.streetLabel = new JLabel("Nowa ulica: ");
+        this.nrHouseLabel = new JLabel("Nowy numer domu: ");
+        this.nrFlatLabel = new JLabel("Nowy numer mieszkania: ");
+        this.postCodeLabel = new JLabel("Nowy kod pocztowy: ");
+        this.postOfficeLabel = new JLabel("Nowy urząd pocztowy: ");
+        this.modBtn = new JButton("Modyfikuj");
 
 
+        this.indexText = new JTextField(20);
         this.nameText = new JTextField(20);
         this.surnameText = new JTextField(20);
         this.phoneText = new JTextField(20);
@@ -55,14 +59,15 @@ public class Add_panel extends JPanel {
         this.postCodeText = new JTextField(20);
         this.postOfficeText = new JTextField(20);
 
-        addBtn.addActionListener(new ActionListener(){
+        modBtn.addActionListener(new ActionListener(){
 
             public void actionPerformed(ActionEvent e){
                 JButton clicked = (JButton)e.getSource();
-                if(clicked == addBtn)
+                if(clicked == modBtn)
                 {
                     if(manager!=null)
                     {
+
                         String name = nameText.getText();
                         String surname = surnameText.getText();
                         String phone_number = phoneText.getText();
@@ -71,26 +76,24 @@ public class Add_panel extends JPanel {
                         String nr_flat = nrFlatText.getText();
                         String post_code = postCodeText.getText();
                         String post_office = postOfficeText.getText();
-                        if(!name.isEmpty() && !surname.isEmpty() && !phone_number.isEmpty() && !street.isEmpty() && !nr_house.isEmpty() && !nr_flat.isEmpty() && !post_code.isEmpty() && !post_office.isEmpty()) {
-                            Person person = new Person(name, surname, phone_number, street, nr_house, nr_flat, post_code, post_office);
+                        String index = indexText.getText();
+                        Person person = new Person(name, surname, phone_number, street, nr_house, nr_flat, post_code, post_office);
                             try {
-                                manager.AddPerson(person);
+                                manager.ModPerson(Integer.parseInt(index),person);
                             } catch (FileNotFoundException ex) {
 
                             }
                         }
                     }
                 }
+        });
+        Border innerBorder = BorderFactory.createTitledBorder("Modyfikuj osobę");
+        Border outerBorder = BorderFactory.createEmptyBorder(5,5,5,5);
+        setBorder(BorderFactory.createCompoundBorder(outerBorder,innerBorder));
 
-        }
-    });
-    Border innerBorder = BorderFactory.createTitledBorder("Dodaj osobę");
-    Border outerBorder = BorderFactory.createEmptyBorder(5,5,5,5);
-    setBorder(BorderFactory.createCompoundBorder(outerBorder,innerBorder));
+        setLayout(new GridBagLayout());
 
-    setLayout(new GridBagLayout());
-
-    GridBagConstraints gc = new GridBagConstraints();
+        GridBagConstraints gc = new GridBagConstraints();
 
 
         /////////////Name//////////////////////////
@@ -219,16 +222,31 @@ public class Add_panel extends JPanel {
         gc.anchor = GridBagConstraints.LINE_START;
         add(postOfficeText, gc);
 
+        ///////////////////////Index//////////////////////////////
+        gc.weightx = 1;
+        gc.weighty = 0.1;
+
+        gc.gridy = 8;
+        gc.gridx = 0;
+        gc.anchor = GridBagConstraints.LINE_END;
+        gc.insets = new Insets(0,0,0,5);
+        add(indexLabel, gc);
+
+        gc.gridy = 8;
+        gc.gridx = 1;
+        gc.insets = new Insets(0, 0, 0, 0);
+        gc.anchor = GridBagConstraints.LINE_START;
+        add(indexText, gc);
         /////////////////////////Button//////////////////////////////
 
         gc.weightx = 1;
         gc.weighty = 2;
 
-        gc.gridy = 8;
+        gc.gridy = 9;
         gc.gridx = 1;
         gc.anchor = GridBagConstraints.FIRST_LINE_START;
         gc.insets = new Insets(0,0,0,0);
-        add(addBtn, gc);
+        add(modBtn, gc);
 
     }
     public void setShowManager(ShowManager manager){
